@@ -1,30 +1,21 @@
-This error related to function read_csv of fetch_data file 
-[Errno 2] File dataset/dialect_dsataset.csv does not exist: 'dataset/dialect_dsataset.csv'
+This error related to function fetching_pipeline of fetch_data file 
+name 'column_to_convert' is not defined
 ###################################################################################################
-This error related to function read_csv of fetch_data file 
-[Errno 2] File dataset/dialect_dsataset.csv does not exist: 'dataset/dialect_dsataset.csv'
+This error related to function fetching_pipeline of fetch_data file 
+name 'column_to_convert' is not defined
 ###################################################################################################
-This error related to function read_csv of fetch_data file 
-[Errno 2] File dataset/dialect_dsataset.csv does not exist: 'dataset/dialect_dsataset.csv'
+This error related to function fetching_pipeline of fetch_data file 
+name 'column_to_convert' is not defined
 ###################################################################################################
-This error related to function read_csv of fetch_data file 
-[Errno 2] File dataset/dialect_dsataset.csv does not exist: 'dataset/dialect_dsataset.csv'
+This error related to function fetching_pipeline of fetch_data file 
+name 'column_to_convert' is not defined
 ###################################################################################################
-This error related to function read_csv of fetch_data file 
-[Errno 2] File dataset/dialect_dsataset.csv does not exist: 'dataset/dialect_dsataset.csv'
+This error related to function fetching_pipeline of fetch_data file 
+name 'column_to_convert' is not defined
 ###################################################################################################
-This error related to function read_csv of fetch_data file 
-[Errno 2] File dataset/dialect_dsataset.csv does not exist: 'dataset/dialect_dsataset.csv'
+This error related to function fetching_pipeline of fetch_data file 
+name 'column_to_convert' is not defined
 ###################################################################################################
-This error related to function read_csv of fetch_data file 
-[Errno 2] File dataset/dialect_dsataset.csv does not exist: 'dataset/dialect_dsataset.csv'
-###################################################################################################
-This error related to function read_csv of fetch_data file 
-[Errno 2] File dataset/dialect_dsataset.csv does not exist: 'dataset/dialect_dsataset.csv'
-###################################################################################################
-This error related to function read_csv of fetch_data file 
-[Errno 2] File dataset/dialect_dsataset.csv does not exist: 'dataset/dialect_dsataset.csv'
-###################################################################################################
-This error related to function convert_column_to_string of fetch_data file 
-name 'tweets_ids' is not defined
+This error related to function fetching_pipeline of fetch_data file 
+All arrays must be of the same length
 ###################################################################################################

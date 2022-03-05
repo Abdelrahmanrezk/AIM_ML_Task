@@ -5,6 +5,8 @@ import numpy as np
 import requests
 import json
 from itertools import islice
+import pprint
+
 # Main directions
 DATA_PATH = "dataset/"
 URL = 'https://recruitment.aimtechnologies.co/ai-tasks'
@@ -22,11 +24,12 @@ def read_csv(file_name, data_path=DATA_PATH):
 
     '''
     try:
-        dialect_dataset = pd.read_csv(DATA_PATH + file_name)
+        dialect_dataset = pd.read_csv(DATA_PATH + file_name, lineterminator='\n')
         print("Number of instances in the file are: ", len(dialect_dataset))
 
     except Exception as e:
         print("You need to first handle the error related to reading the data to keep gooing: \n", e)
+        
 
     return dialect_dataset
 
@@ -76,14 +79,9 @@ def request_ids(list_of_ids, url=URL):
 
         # Decode the content retrived into utf-8 as it encoded into TIS-620
         response_text = response.content.decode("utf-8") 
-        print("The type of the returned content of the ids are: ", type(response_text))
 
         # Convert the response text from string to json dictionary
         response_text = json.loads(response_text)
-
-        print("The type of the converted content of the ids are: ", type(response_text))
-
-        
 
     except Exception as e:
         file                = open("logs/fetch_data.log","+a")
@@ -102,15 +100,15 @@ def display_json_result(iterable, n):
     return n_items
 
 
-def fetching_pipeline(file_name, col_to_convert, dialect_col, data_path=DATA_PATH):
+def fetching_pipeline(file_name_to_read, file_name_to_save, col_to_convert, dialect_col, data_path=DATA_PATH):
     
     try:
 
         # Reading the dialect_dataset using read_csv function defined in that file
-        dialect_dataset = read_csv(file_name)
-
+        dialect_dataset = read_csv(file_name_to_read)
+        
         # Convert the value data types of id column into string using convert_column_to_string function defined in that file
-        dialect_ids      = convert_column_to_string(dialect_dataset[column_to_convert])
+        dialect_ids      = convert_column_to_string(dialect_dataset[col_to_convert])
         
         # Convert the returned dialect ids into list as it required by the APIs to make success request
         dialect_ids_list = list(dialect_ids)
@@ -142,18 +140,20 @@ def fetching_pipeline(file_name, col_to_convert, dialect_col, data_path=DATA_PAT
             if len(dialect_ids_list) - end < 1000:
                 subset_of_ids = dialect_ids_list[end:] # from the end we have to the end of the list
                 response_text = request_ids(subset_of_ids)
+                print("The type of the converted content of the ids are: ", type(response_text))
+                print("="*50)
                 list_of_text = list(response_text.values())
                 all_retrieved_text_list += list_of_text
 
                 # At the end display some of the result from the json dictionary
                 n_items = display_json_result(response_text.items(), 10)
-                print(n_items)
+                pprint.pprint(n_items)
 
         # Create new dataframe with the retrieve text column as well as with other columns
         dialect_data_frame            = pd.DataFrame({"id": dialect_ids_list, "dialect":  dialect_col, "text": all_retrieved_text_list})
         
         # Save as new csv file to start the preprocessing pipeline on
-        file_path_to_save = data_path + "dialect_dataset_with_text.csv"
+        file_path_to_save = data_path + file_name_to_save
         dialect_data_frame.to_csv(file_path_to_save, index=False, encoding='utf8')
     except Exception as e:
         file                = open("logs/fetch_data.log","+a")
