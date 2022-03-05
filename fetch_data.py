@@ -30,6 +30,18 @@ def read_csv(file_name, data_path=DATA_PATH):
 
     return dialect_dataset
 
+    
+def validate_ids_and_dialect(dialect_dataset, new_dialect_dataset):
+    dataset_ids = list(dialect_dataset['id'])
+    dataset_dialect = list(dialect_dataset['dialect'])
+    new_dataset_ids = list(new_dialect_dataset['id'])
+    new_dataset_dialect = list(new_dialect_dataset['dialect'])
+    
+    for i in range(len(dataset_ids)):
+        assert (dataset_ids[i] == new_dataset_ids[i])
+        assert (dataset_dialect[i] == new_dataset_dialect[i])
+        
+    return True
 
 def convert_column_to_string(column_to_convert):
     """
