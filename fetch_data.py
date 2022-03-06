@@ -245,9 +245,10 @@ def fetching_pipeline(file_name_to_read, file_name_to_save, col_to_convert, dial
         file_path_to_save = data_path + file_name_to_save
         dialect_data_frame.to_csv(file_path_to_save, index=False, encoding='utf8')
 
+        # Read to check the two dataset
+        dialect_dataset     = read_csv(file_name_to_read)
         new_dialect_dataset = read_csv(file_path_to_save)
-
-        # check the columns of original data with the newly created data
+            # check the columns of original data with the newly created data
         _ = validate_ids_and_dialect(dialect_dataset, new_dialect_dataset)
         
         print("Our fetching pipeline is work without any error.")
