@@ -72,10 +72,11 @@ def validate_ids_and_dialect(dialect_dataset, new_dialect_dataset):
     Return
         True                 : boolean if there is no error occurred
     '''
-
+    print("="*50)
     print("The columns of orginal data are: ", dialect_dataset.columns)
+    print("="*50)
     print("The columns of new created data are: ", new_dialect_dataset.columns)
-
+    print("="*50)
 
     # Retrieve columns data as list
     dataset_ids         = list(dialect_dataset['id'])
@@ -244,8 +245,10 @@ def fetching_pipeline(file_name_to_read, file_name_to_save, col_to_convert, dial
         file_path_to_save = data_path + file_name_to_save
         dialect_data_frame.to_csv(file_path_to_save, index=False, encoding='utf8')
 
+        new_dialect_dataset = read_csv(file_path_to_save)
+
         # check the columns of original data with the newly created data
-        validate_ids_and_dialect(dialect_dataset, dialect_data_frame)
+        _ = validate_ids_and_dialect(dialect_dataset, new_dialect_dataset)
         
         print("Our fetching pipeline is work without any error.")
 
