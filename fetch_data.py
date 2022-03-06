@@ -11,16 +11,21 @@ import pprint
 DATA_PATH = "dataset/"
 URL = 'https://recruitment.aimtechnologies.co/ai-tasks'
 
+#### ------------------------------------------------------------------------------------------------------- ####
+
+
 ########################### Start some Helpful Functions ######################################
+
+########################### Start to read csv file
 
 def read_csv(file_name, data_path=DATA_PATH):
     '''
     The function used to read csv file.
     
     Argument
-        file_name: string, The path of the file we need to reed.
+        file_name       : string,   The path of the file we need to reed.
     Return
-        The readed file as dataframe.
+        dialect_dataset : datafame, The readed file as dataframe.
 
     '''
     try:
@@ -33,18 +38,65 @@ def read_csv(file_name, data_path=DATA_PATH):
 
     return dialect_dataset
 
-    
+########################### End of read csv file
+
+
+########################### Start to display some items from dictionary
+
+def display_json_result(iterable, n):
+    """
+    The function used to display the respose from the APIs for some ids.
+
+    Argument
+        iterable : iterator, over the dictionary items.
+        n        : int, how many items you need to display.
+    Return
+        n_items  : dictionary of n items to display the key is ID, and value is the text.
+    """
+
+    n_items = dict(islice(iterable, n))
+    return n_items
+
+########################### End of display some items from dictionary
+
+########################### Start to validate the data used and the new created data with new text column
+
 def validate_ids_and_dialect(dialect_dataset, new_dialect_dataset):
-    dataset_ids = list(dialect_dataset['id'])
-    dataset_dialect = list(dialect_dataset['dialect'])
-    new_dataset_ids = list(new_dialect_dataset['id'])
+    '''
+    The function used to ensure that we have not missed or change in the ids as well as the dialect between 
+    the new created dialect_dataset with text and the data we used to call the APIs.
+
+    Argument
+        dialect_dataset      : The original dataset
+        new_dialect_dataset  : The new created dataset
+    Return
+        True                 : boolean if there is no error occurred
+    '''
+
+    # Retrieve columns data as list
+    dataset_ids         = list(dialect_dataset['id'])
+    dataset_dialect     = list(dialect_dataset['dialect'])
+    new_dataset_ids     = list(new_dialect_dataset['id'])
     new_dataset_dialect = list(new_dialect_dataset['dialect'])
     
     for i in range(len(dataset_ids)):
-        assert (dataset_ids[i] == new_dataset_ids[i])
+        assert (dataset_ids[i]     == new_dataset_ids[i])
         assert (dataset_dialect[i] == new_dataset_dialect[i])
-        
+
     return True
+
+########################### End of validate the data used and the new created data with new text column
+
+
+########################### End of some Helpful Functions ######################################
+
+#### ------------------------------------------------------------------------------------------------------- ####
+
+
+########################### Start The main functions of fetching and handle the data ######################################
+
+
+########################### Start to convert the datatype of some column
 
 def convert_column_to_string(column_to_convert):
     """
@@ -58,11 +110,12 @@ def convert_column_to_string(column_to_convert):
     """
 
     try:
-        column_converted = column_to_convert.astype(str)
+        column_converted    = column_to_convert.astype(str)
         # These prints help me knows there is no missing in data while we apply these transformation
         print("We have total number of ids: ", len(column_converted))
         print("="*50)
-        
+    
+    # In case of error sent to main logs direction
     except Exception as e:
         file                = open("logs/fetch_data.log","+a")
         file.write("This error related to function convert_column_to_string of fetch_data file \n"
@@ -70,6 +123,10 @@ def convert_column_to_string(column_to_convert):
         
     return column_converted
 
+########################### End of convert the datatype of some column
+
+
+########################### Start to send the request with list of ids as strings
 
 def request_ids(list_of_ids, url=URL):
     """
@@ -84,17 +141,19 @@ def request_ids(list_of_ids, url=URL):
         response_text : dictionary, json dictionary of the tweets associated with its ids
 
     """
+
     try:
 
         # Request some ids 
         response        = requests.post(url, json=list_of_ids)
 
-        # Decode the content retrived into utf-8 as it encoded into TIS-620
-        response_text = response.content.decode("utf-8") 
+
+        response_text = response.content
 
         # Convert the response text from string to json dictionary
         response_text = json.loads(response_text)
 
+    # In case of error sent to main logs direction
     except Exception as e:
         file                = open("logs/fetch_data.log","+a")
         file.write("This error related to function request_ids of fetch_data file \n"
@@ -102,22 +161,34 @@ def request_ids(list_of_ids, url=URL):
 
     return response_text
     
-########################### End of some Helpful Functions ######################################
 
-def display_json_result(iterable, n):
-    """
-    The function used to display the respose from the APIs for some ids.
-    """
-    n_items = dict(islice(iterable, n))
-    return n_items
+########################### End of The main functions of fetching and handle the data ######################################
 
+
+#### ------------------------------------------------------------------------------------------------------- ####
+
+
+
+########################### Start the pipeline to collect the data from APIs ######################################
 
 def fetching_pipeline(file_name_to_read, file_name_to_save, col_to_convert, dialect_col, data_path=DATA_PATH):
-    
+    '''
+    The function used to combine all of our function into one pipeline that handle all of fetching data task.
+
+    Arguments
+        file_name_to_read : string, the name of the csv file you need to read from.
+        file_name_to_save : string, the name of the csv file you need to save the new data after fetching it.
+        col_to_convert    : string, Which column you need to convert its datatype to call the api.
+        dialect_col       : string, The column of dialect to get it into the new file with new column.
+        data_path         : string, The main dierction of our data.
+
+    Return
+        True              : boolean, in case there is no error occured in our pipeline.
+    '''
     try:
 
         # Reading the dialect_dataset using read_csv function defined in that file
-        dialect_dataset = read_csv(file_name_to_read)
+        dialect_dataset  = read_csv(file_name_to_read)
         
         # Convert the value data types of id column into string using convert_column_to_string function defined in that file
         dialect_ids      = convert_column_to_string(dialect_dataset[col_to_convert])
@@ -125,7 +196,7 @@ def fetching_pipeline(file_name_to_read, file_name_to_save, col_to_convert, dial
         # Convert the returned dialect ids into list as it required by the APIs to make success request
         dialect_ids_list = list(dialect_ids)
 
-        dialect_col = list(dialect_dataset[dialect_col])
+        dialect_col      = list(dialect_dataset[dialect_col])
 
         # Start from first id with index 0
         start = 0
@@ -133,6 +204,7 @@ def fetching_pipeline(file_name_to_read, file_name_to_save, col_to_convert, dial
         # Collect the retrived text from API into one list
         all_retrieved_text_list = []
         for end in range(1000, len(dialect_ids_list), 1000):
+
             # As we have to call the API with Max length of list 1000, 
             # so we need to start from 0 to 1000, then from 1000 to 2000 and so on
 
@@ -167,8 +239,13 @@ def fetching_pipeline(file_name_to_read, file_name_to_save, col_to_convert, dial
         # Save as new csv file to start the preprocessing pipeline on
         file_path_to_save = data_path + file_name_to_save
         dialect_data_frame.to_csv(file_path_to_save, index=False, encoding='utf8')
+
+        print("Our fetching pipeline is work without any error.")
     except Exception as e:
         file                = open("logs/fetch_data.log","+a")
         file.write("This error related to function fetching_pipeline of fetch_data file \n"
                    + str(e) + "\n" + "#" *99 + "\n") # "#" *99 as separated lines
     return True
+
+
+########################### End the pipeline to collect the data from APIs ######################################
