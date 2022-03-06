@@ -208,6 +208,7 @@ def fetching_pipeline(file_name_to_read, file_name_to_save, col_to_convert, dial
 
         # Collect the retrived text from API into one list
         all_retrieved_text_list = []
+
         for end in range(1000, len(dialect_ids_list), 1000):
 
             # As we have to call the API with Max length of list 1000, 
@@ -240,15 +241,17 @@ def fetching_pipeline(file_name_to_read, file_name_to_save, col_to_convert, dial
 
         # Create new dataframe with the retrieve text column as well as with other columns
         dialect_data_frame            = pd.DataFrame({"id": dialect_ids_list, "dialect":  dialect_col, "text": all_retrieved_text_list})
-        
+        print("Check after loop")
         # Save as new csv file to start the preprocessing pipeline on
         file_path_to_save = data_path + file_name_to_save
         dialect_data_frame.to_csv(file_path_to_save, index=False, encoding='utf8')
-
+        print("after saving data")
         # Read to check the two dataset
         dialect_dataset     = read_csv(file_name_to_read)
+        print("after saving data")
         new_dialect_dataset = read_csv(file_path_to_save)
-            # check the columns of original data with the newly created data
+        print("after saving data")
+        # check the columns of original data with the newly created data
         _ = validate_ids_and_dialect(dialect_dataset, new_dialect_dataset)
         
         print("Our fetching pipeline is work without any error.")
