@@ -17,7 +17,8 @@ We have the original dataset without the text column, which what we will use for
 - Then, loop over batches of maximum 1000 of ids and call the APIs to get corresponding tweets of these ids.
 - Then, handle requirements for saving new csv file with the new text column.
 
-To see this stage of fetching data, check the **fetch_data.py** script, its fully documented, and to get overview of the result from this stage check **Data Fetching.ipynb**.
+
+**To see this stage of fetching data, check the [fetch_data.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/fetch_data.py) script, its fully documented, and to get overview of the result from this stage check [Data Fetching.ipynb notebook](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/Data%20Fetching.ipynb).**
 
 **Quick intuition about what we got from this stage**
 
