@@ -66,9 +66,9 @@ we dealing with Arabic text we start the cleaning process.
 
 **Quick intuition about preprocessing and shuffling**
 
-Solarized dark             |  Solarized Ocean
+Pre-processing            |  Shuffling & Spliting
 :-------------------------:|:-------------------------:
-![](images/fetching_data.png)  |  ![](images/fetching_data.png)
+![](images/pre-processing_data.png)  |  ![](images/shuffling_data.png)
 
 ## How To Use
 
