@@ -66,10 +66,10 @@ we dealing with Arabic text we start the cleaning process.
 
 **Quick intuition about preprocessing and shuffling**
 
-<p float="left">
-  <img src="images/fetching_data.png"/>
-  <img src="images/fetching_data.png"/>
-</p>
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+![](images/fetching_data.png)  |  ![](images/fetching_data.png)
+
 ## How To Use
 
 First you need to install the requirements using snip code below, in case of missed libraries error try to pip3 install "name of library" like in snap code below.
