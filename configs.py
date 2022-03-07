@@ -87,3 +87,18 @@ def validate_ids_and_dialect(dialect_dataset, new_dialect_dataset):
 
 
 
+def save_train_test_data(data, sub_dir, file_name_to_save, data_path=DATA_PATH):
+    '''
+    The function used to save the data after the spliting we apply to it.
+
+    Argument
+        data              : dataframe, the data you need to save.
+        train_dir         : string, in which direction inside the main dataset direction you need to save your data.
+        file_name_to_save : string, the csv file name you need to save the file with.
+    '''
+    # Get the full path to save the file
+
+    file_path_to_save = data_path + sub_dir + file_name_to_save
+    data.to_csv(file_path_to_save, index=False, encoding='utf8')
+
+    return True
