@@ -65,10 +65,10 @@ we dealing with Arabic text we start the cleaning process.
 **To see this stage of preprocessing data, check the [data_preprocess.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/data_preprocess.py) and to know how we shuffle the data, check the [data_shuffling_split.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/data_shuffling_split.py) its fully documented, and to get overview of the result from this stage check [Data pre-processing.ipynb notebook](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/Data%20pre-processing.ipynb).**
 
 **Quick intuition about preprocessing and shuffling**
+![Pre-processing Data](images/pre-processing_data.png)
 
-Pre-processing            |  Shuffling & Spliting
-:-------------------------:|:-------------------------:
-<img src="images/pre-processing_data.png" width="700"/> |  <img src="images/shuffling_data.png" height="200" width="700"/>
+|![Shuffling Data](images/shuffling_data.png)
+
 
 ## How To Use
 
