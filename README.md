@@ -68,7 +68,7 @@ we dealing with Arabic text we start the cleaning process.
 
 Pre-processing            |  Shuffling & Spliting
 :-------------------------:|:-------------------------:
-<img src="images/pre-processing_data.png" alt="drawing" width="200"/> |  ![](images/shuffling_data.png)
+<img src="images/pre-processing_data.png" height="600" width="600"/> |  <img src="images/shuffling_data.png" height="600" width="600"/>
 
 ## How To Use
 
