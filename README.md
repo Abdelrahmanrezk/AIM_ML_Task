@@ -6,6 +6,6 @@ Many countries speak Arabic; however, each country has its own dialect, the aim 
 
 ## How To Use
 
-- First you need to install the requirements using snip code below, in case m=of missed libraries error try to pip3 install "name of library"
+First you need to install the requirements using snip code below, in case m=of missed libraries error try to pip3 install "name of library"
 
-pip3 install -r requirements.txt
+	pip3 install -r requirements.txt
