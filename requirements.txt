@@ -1,0 +1,5 @@
+nltk
+tashaphyne
+emojis
+sklearn
+
