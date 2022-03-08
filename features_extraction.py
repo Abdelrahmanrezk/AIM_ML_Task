@@ -63,7 +63,11 @@ def ML_text_to_matrix_using_word2vec(word_to_vec_model, text_list, number_of_fea
     embedding_matrix            = np.zeros((len(text_list), number_of_features*max_len_str), dtype=np.float16) # largest sentence and 5 fetures
     print("The shape of matrix", embedding_matrix.shape)
 #loop over each review
+    i = 0
     for index,text in enumerate(text_list):
+        if (i+1) % 30000:
+            print("We have processed: ", i+1)
+        i +=1
 # list of each reviw which will be appended to embedding matrix
         one_sentence_list       = [] 
         for word in text:
