@@ -26,21 +26,6 @@ We have the original dataset without the text column, which what we will use for
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Data pre-processing
 
 The first thing we started with after fetching the data is to process the text we got, and at this point as 
@@ -48,6 +33,7 @@ we dealing with Arabic text we start the cleaning process.
 
 
 ### How we passed through this stage
+- Encode the dialects into numbers
 - Replace url with Non-standard Arabic name (رابطويب)
 - Replace mentions with Non-standard Arabic name (حسابشخصي)
 - Remove diacritics

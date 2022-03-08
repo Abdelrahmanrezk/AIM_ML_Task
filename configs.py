@@ -1,5 +1,6 @@
 from itertools import islice
 import pandas as pd
+from collections import Counter
 
 # Main directions
 DATA_PATH = "dataset/"
@@ -82,6 +83,36 @@ def validate_ids_and_dialect(dialect_dataset, new_dialect_dataset):
 
 
     return True
+
+
+def get_keys_that_val_gr_than_num(num_of_words_in_each_text, num):
+    '''
+    The function used to get dictionary that value of its keys are greater than some number.
+
+    Argument
+        num_of_words_in_each_text : list, The list to get the values repeated in as keys and how many times its repeated as value.
+        num                       : int, Which keys its value grater than that num to save in your dictionary.
+    Return
+        new_dicts                 : dictionary, keys and its related repeated value greater than some num
+    '''
+    # get number of times the text has same number of tokens
+    dicts = dict(Counter(num_of_words_in_each_text))
+
+    # Get new object instead of reference to same dictionary as we do not need to delete of what we loop over.
+    new_dicts = dicts.copy()
+
+    print("The number of keys before removing are: ", len(new_dicts))
+    print("="*50)
+    for key, val in dicts.items():
+        if val <= num:
+            new_dicts.pop(key)
+
+    print("The number of keys after removing some of them are: ", len(new_dicts))
+    print("="*50)
+    new_dicts = {key: val for key, val in sorted(new_dicts.items(), key=lambda item: item[1])}
+    return new_dicts
+    
+
 
 ########################### End of validate the data used and the new created data with new text column
 

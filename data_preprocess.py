@@ -1,5 +1,6 @@
 
 # Main libraries 
+from sklearn.preprocessing import LabelEncoder
 from nltk.tokenize import TreebankWordTokenizer
 from tashaphyne.stemming import ArabicLightStemmer
 from datetime import datetime
@@ -249,6 +250,10 @@ def arabic_preprocess_pipline(file_name_to_read, file_name_to_save, ids_col="id"
 
     list_of_text = list(new_dialect_dataset[text_col])
 
+    l_encoder = LabelEncoder()
+    dialects  = list(new_dialect_dataset[dialect_col])
+    l_encoder.fit(dialects)
+    dialects = l_encoder.transform(dialects)
     try:
         for text in list_of_text:
             text_preprocessed += [clean_text(text)]
@@ -262,8 +267,9 @@ def arabic_preprocess_pipline(file_name_to_read, file_name_to_save, ids_col="id"
         print(text_preprocessed[:5])
         print("="*50)
 
+
         # Create new dataframe with the retrieve text column as well as with other columns
-        dialect_data_frame            = pd.DataFrame({"id": new_dialect_dataset[ids_col], "dialect":  new_dialect_dataset[dialect_col], "text": text_preprocessed})
+        dialect_data_frame            = pd.DataFrame({"id": new_dialect_dataset[ids_col], "dialect":  new_dialect_dataset[dialect_col], "dialect_l_encoded":  dialects, "text": text_preprocessed})
         
         # Save as new csv file to start the preprocessing pipeline on
         file_path_to_save = data_path + file_name_to_save
