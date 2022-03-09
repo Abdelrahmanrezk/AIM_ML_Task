@@ -65,7 +65,7 @@ def ML_text_to_matrix_using_word2vec(word_to_vec_model, text_list, number_of_fea
 #loop over each review
     i = 0
     for index,text in enumerate(text_list):
-        if (i+1) % 30000:
+        if (i+1) % 30000 == 0:
             print("We have processed: ", i+1)
         i +=1
 # list of each reviw which will be appended to embedding matrix
