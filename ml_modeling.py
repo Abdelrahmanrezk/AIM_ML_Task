@@ -9,7 +9,7 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.metrics import f1_score
 import keras
 def grid_search(model, parameters, X_train, y_train):
-    grid_s_model = GridSearchCV(model, parameters, cv=3, verbose=3, n_jobs=-1)
+    grid_s_model = GridSearchCV(model, parameters, cv=3, verbose=1)
     grid_s_model.fit(X_train, y_train)
     return grid_s_model
 
