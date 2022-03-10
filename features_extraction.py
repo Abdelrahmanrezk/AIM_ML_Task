@@ -1,6 +1,6 @@
 from gensim.models import Word2Vec
 import numpy as np
-
+from keras.preprocessing.sequence import pad_sequences
 from configs import *
 from fetch_data import *
 from features_extraction import *
@@ -64,6 +64,7 @@ def ML_text_to_matrix_using_word2vec(word_to_vec_model, text_list, number_of_fea
     print("The shape of matrix", embedding_matrix.shape)
 #loop over each review
     i = 0
+    
     for index,text in enumerate(text_list):
         if (i+1) % 30000 == 0:
             print("We have processed: ", i+1)
@@ -72,23 +73,26 @@ def ML_text_to_matrix_using_word2vec(word_to_vec_model, text_list, number_of_fea
         one_sentence_list       = [] 
         for word in text:
             try:
+                print("1111111111111111111111111111111111")
                 word                = word_to_vec_model.wv[word]
                 one_sentence_list.extend(word)
             except:
                 pass
-            
+
 # make padding for small strings
         zero_pad                = np.zeros(number_of_features*max_len_str-len(one_sentence_list))
         zero_pad                = list(zero_pad)
-    
 # apply the padding
         one_sentence_list.extend(zero_pad)
+
         embedding_matrix[index] = one_sentence_list
+    
+    X_train_embed_matrix = pad_sequences(X_train_embed_matrix, maxlen=max_len_str, padding='post')
     return embedding_matrix
 
 
 
-def DL_text_to_matrix_using_word2vec(word_to_vec_model, text_list):
+def text_to_matrix_using_word2vec(word_to_vec_model, text_list):
 
     embedding_matrix = []
     for text in text_list:
