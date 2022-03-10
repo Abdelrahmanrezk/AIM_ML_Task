@@ -86,7 +86,7 @@ def ML_text_to_matrix_using_word2vec(word_to_vec_model, text_list, number_of_fea
         one_sentence_list.extend(zero_pad)
 
         embedding_matrix[index] = one_sentence_list
-    
+
     X_train_embed_matrix = pad_sequences(X_train_embed_matrix, maxlen=max_len_str, padding='post')
     return embedding_matrix
 
@@ -103,6 +103,5 @@ def text_to_matrix_using_word2vec(word_to_vec_model, text_list):
             except KeyError:
                 pass
         embedding_matrix.append(sampel_vec)
-
     return embedding_matrix
 
