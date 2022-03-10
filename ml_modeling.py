@@ -42,6 +42,16 @@ def model_fit(model, X_train, y_train, model_path_to_save):
     save_mode(model, model_path_to_save)
     return model
 
+def classifier(X_train, y_train):
+
+    vec = TfidfVectorizer(min_df=5, max_df=0.95, sublinear_tf=True, use_idf=True, ngram_range=(1, 2))
+    svm_clf = svm.LinearSVC(C=0.1)
+    vec_clf.fit(X_train, y_train)
+    joblib.dump(vec_clf, 'saved_model/svmClassifier.pkl', compress=3)
+
+    return vec_clf
+
+
 # def keras_sgd(X_train, y_train):
 #     model = keras.models.Sequential()
 #     model.add(keras.layers.Dense(18, activation='softmax'))

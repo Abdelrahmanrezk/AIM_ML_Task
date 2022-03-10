@@ -72,7 +72,7 @@ def ML_text_to_matrix_using_word2vec(word_to_vec_model, text_list, number_of_fea
         one_sentence_list       = [] 
         for word in text:
             try:
-                word                = word_to_vec_model[word]
+                word                = word_to_vec_model.wv[word]
                 one_sentence_list.extend(word)
             except:
                 pass
@@ -85,3 +85,20 @@ def ML_text_to_matrix_using_word2vec(word_to_vec_model, text_list, number_of_fea
         one_sentence_list.extend(zero_pad)
         embedding_matrix[index] = one_sentence_list
     return embedding_matrix
+
+
+
+def DL_text_to_matrix_using_word2vec(word_to_vec_model, text_list):
+
+    embedding_matrix = []
+    for text in text_list:
+        sampel_vec = []
+        for token in text:
+            try:
+                sampel_vec.append(word_to_vec_model.wv[token])
+            except KeyError:
+                pass
+        embedding_matrix.append(sampel_vec)
+
+    return embedding_matrix
+
