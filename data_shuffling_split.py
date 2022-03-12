@@ -71,9 +71,8 @@ def dialect_proportions(data):
     The function used to get percentage of how many instances(samples) of each class we have.
     Argument
         data                   : dataframe, the data you need to check the counts of each class in some column.
-        prop_sampels_per_class : series, the proportions of samples per dialect class
     Return
-
+        prop_sampels_per_class : array, proportions of each class counts
     '''
     prop_sampels_per_class = data["dialect"].value_counts() / len(data)
     return prop_sampels_per_class
@@ -81,22 +80,24 @@ def dialect_proportions(data):
 
 
 def compare_random_and_stratified_split(dialect_dataset, test_set, strat_test_set):
-
+    '''
+    The function used to compare how its random and stratified split are from spliting our data, 
+    the second one ensure that we have proportions of each class instances related to what in the orginal data.
+    Argument
+        dialect_dataset  : dataframe, the orginal data to compare with.
+        test_set         : dataframe, the test data created by random split.
+        strat_test_set   : dataframe, the test data created by random stratified split.
+    '''
+    # Get percentage of the number of instances per class for each dataset
     overall                              = dialect_proportions(dialect_dataset)
     random_test                          = dialect_proportions(test_set)
     stratified_test                      = dialect_proportions(strat_test_set)
-    
-
-
     comp_prop_dict                       = { 'Overall': overall,  'stratified_test': stratified_test,   'random_test':random_test }
-
     comp_prop                            = pd.DataFrame(comp_prop_dict)
     
     # First get how many instance of each class we got by * 100, then divide by the overall of instances of each class 
     comp_prop['stratified_test. %error'] = 100 * comp_prop["stratified_test"] / comp_prop["Overall"] - 100
     comp_prop['random_test. %error']     = 100 * comp_prop["random_test"] / comp_prop["Overall"] - 100
-
-
 
     return comp_prop
 

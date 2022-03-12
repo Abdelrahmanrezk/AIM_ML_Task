@@ -11,8 +11,19 @@ from data_preprocess import *
 
 
 def prepare_data(data):
+    '''
+    The function used to prepare what we will use as features(text),
+    and the corresponding class associated with that text.
+    
+Argument
+        data    : dataframe, the data you need to split into training and validation.
+    '''
+
+    # Get the splited training and validation datasets.
     x_train, x_val = Stratified_split_and_shuffle(data, "dialect", split_percentage=.02)
+    # Separate text into lists
     x_train_text, x_val_text = list(x_train['text']), list(x_val['text'])
+    # Separate classes into arrays
     y_train, y_val = x_train['dialect_l_encoded'].values, x_val['dialect_l_encoded'].values
 
     print("The number of trainin instances: ", len(x_train_text))
@@ -24,7 +35,7 @@ def prepare_data(data):
 
 
 
-def load_model(file_path):
+def pickle_load_model(file_path):
     '''
     Load the fitted tf-idf file.
     Argument:
@@ -34,7 +45,7 @@ def load_model(file_path):
     return model
 
 
-def save_mode(model, file_path):
+def pickle_save_mode(model,file_path):
 
     pickle.dump(model, open(file_path, 'wb'))
 
@@ -92,7 +103,7 @@ def ML_text_to_matrix_using_word2vec(word_to_vec_model, text_list, number_of_fea
 
 
 
-def text_to_matrix_using_word2vec(word_to_vec_model, text_list):
+def text_to_matrix_using_word2vec(word_to_vec_model, text_list, max_len_str):
 
     embedding_matrix = []
     for text in text_list:
@@ -103,5 +114,11 @@ def text_to_matrix_using_word2vec(word_to_vec_model, text_list):
             except KeyError:
                 pass
         embedding_matrix.append(sampel_vec)
+    embedding_matrix = pad_sequences(embedding_matrix, maxlen=max_len_str, padding='post',  dtype='float16')
+    embedding_matrix = embedding_matrix.reshape(embedding_matrix.shape[0], (embedding_matrix.shape[1]*embedding_matrix.shape[2]))
+    
+    print(embedding_matrix.shape)
+    print("="*50)
+    print(embedding_matrix[0][:50])
     return embedding_matrix
 
