@@ -5,13 +5,42 @@ Many countries speak Arabic; however, each country has its own dialect, the aim 
 
 In this work we have passed through different phases from fetching the data, to process it, shuffle the data for the next stage of preparation and run the model on. And how we come over these stages is decribed below.
 
-## Configs
+
+## How To Use
+
+First important, you need to install the requirements using snip code below, in case of missed libraries error try to pip3 install "name of library" like in snap code below.
+
+```python
+
+pip3 install -r requirements.txt
+
+# in case of missed libraries error
+pip3 install nltk
+
+```
+
+
+## Word2Vec
+
+Second important, We have used word2vec for word representation, we used some pretrained word2vec published [AraVec](https://www.sciencedirect.com/science/article/pii/S1877050917321749) by Eng. Abo Bakr and others,
+we used lightweight ones which use just unigrams, and as well as our pretrained one. So to come over this:
+
+- First, check Server requirements notebook you can find here [Server requirements](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/Server%20requirements.ipynb)
+- mkdir new direction inside models direction as we download
+- Second, run the notebook to download these word2vec models.
+- Third, extract the zip files, and get the files inside into same downloaded zip , remove zip.
+
+
+## Next, what we done !
+
+
+### Configs
 
 Helpful script to keep of some functions that we use in different files.
 
 **To see this file, check the [configs.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/configs.py) script, its fully documented.**
 
-## Data Fetching
+### Data Fetching
 
 We have the original dataset without the text column, which what we will use for feature engineering to predict which text belong to which dialect. So for that we have design our pipeline for fetching the data using the ids of the original dataset, once we get all of text related to all ids we save new csv file with the new text column.
 
@@ -32,7 +61,7 @@ We have the original dataset without the text column, which what we will use for
 
 
 
-## Data pre-processing
+### Data pre-processing
 
 The first thing we started with after fetching the data is to process the text we got, and at this point as 
 we dealing with Arabic text we start the cleaning process.
@@ -64,25 +93,11 @@ we dealing with Arabic text we start the cleaning process.
 
 
 
-
-## Other code
+### Other code
 
 There iscode_for_other_work, include some code we aimed to delete or use for other work as Grid search, but its need a time to go over this code and train different models multiple times on sem-large dataset.
 
 **To see this file, check the [code_for_other_work.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/code_for_other_work.py).**
 
-
-## How To Use
-
-First you need to install the requirements using snip code below, in case of missed libraries error try to pip3 install "name of library" like in snap code below.
-
-```python
-
-pip3 install -r requirements.txt
-
-# in case of missed libraries error
-pip3 install nltk
-
-```
 
 
