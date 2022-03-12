@@ -1,12 +1,13 @@
 
 # Main libraries 
-from sklearn.preprocessing import LabelEncoder
-from nltk.tokenize import TreebankWordTokenizer
 from tashaphyne.stemming import ArabicLightStemmer
-from datetime import datetime
+from nltk.tokenize import TreebankWordTokenizer
+from sklearn.preprocessing import LabelEncoder
 from nltk import ngrams
 import emojis
 import re
+
+# Conficg file
 from configs import *
 
 
@@ -131,16 +132,16 @@ def tokenize_using_nltk_TreebankWordTokenizer(text_list):
     in end of sentence and in decimal numbers as well as other rules.
     
     Argument
-        text_list: list, list of strings.
+        text_list      : list, list of strings.
     
     Return
-        tokenized_text
+        tokenized_text : list, list of lists each of these list are tokens which consist that string.
     '''
 
     # Take and object from TreebankWordTokenizer tokenizer
     tree_tokenizer = TreebankWordTokenizer()
 
-
+    # Tokenize each text into tokens
     tokenized_text = [tree_tokenizer.tokenize(text) for  text in text_list]
 
     return tokenized_text
@@ -175,8 +176,7 @@ def get_all_ngrams(text_list, nrange=3):
 
 
 
-
-
+########################## Start back to original text from tokenized one
 
 def one_text_un_tokenization(text):
     '''
@@ -191,7 +191,9 @@ def one_text_un_tokenization(text):
     text = " ".join(text)
     return text
     
+########################## End of back to original text from tokenized one
 
+########################## Start To get lemma for tokens
 
 def one_text_Lemmatizing(text):
     '''
@@ -219,7 +221,7 @@ def one_text_Lemmatizing(text):
 
     return text
 
-
+########################## End of get lemma for tokens
 
 
 def all_text_Lemmatizing(text_list):
@@ -231,8 +233,10 @@ def all_text_Lemmatizing(text_list):
     return
         text_list : list, list of strings after process and get the lemma of its tokens(words).
     '''
+
     # Call the one_text_Lemmatizing on each of these text in the list
     text_list = [one_text_Lemmatizing(sentence) for sentence in text_list]
+
     return text_list
 
 
@@ -240,29 +244,39 @@ def all_text_Lemmatizing(text_list):
 def arabic_preprocess_pipline(file_name_to_read, file_name_to_save, ids_col="id", text_col="text" ,dialect_col="dialect", using_lemma=False, data_path=DATA_PATH):
     '''
     The function used to collect any of the preprocessing functions we need to apply into our data.
+    
     Argument
         list_of_text: list, list of text that contain our data text to process it.
+    Return
+        True, boolean once we have passed through the pipeline without errors
     '''
+
+    # To append text processed in
     text_preprocessed = []
 
-    # Reading the dialect_dataset using read_csv function defined in that file
+    # Reading the dialect_dataset using read_csv function defined configs file
     new_dialect_dataset  = read_csv(file_name_to_read)
 
+    # Get list of the text columns from our data
     list_of_text = list(new_dialect_dataset[text_col])
 
+    # As we need to process text we need to handle the target instead of chars to numbers,
+    # These numbers are labeled from 0 to len(classes), and each map each char to one of these label
     l_encoder = LabelEncoder()
     dialects  = list(new_dialect_dataset[dialect_col])
     l_encoder.fit(dialects)
     dialects = l_encoder.transform(dialects)
+
     try:
         for text in list_of_text:
+            # call clean_text function defined above, and return the cleaned text as list
             text_preprocessed += [clean_text(text)]
 
-        # It takes a time if we run it.
+        # It takes a time if we run it. call all_text_Lemmatizing defined above.
         if using_lemma:
             text_preprocessed = all_text_Lemmatizing(text_preprocessed)
 
-
+        #  Display some info about the result
         print("Some samples of text after preprocessed it:")
         print(text_preprocessed[:5])
         print("="*50)
@@ -281,7 +295,8 @@ def arabic_preprocess_pipline(file_name_to_read, file_name_to_save, ids_col="id"
         print("Number of instances in our new file are: ", len(dialect_data_frame))
         print("="*50)
         print("Our Arabic preprocess pipeline is work without any error.")
-
+        
+    # Send exception to logs direction
     except Exception as e:
         file                = open("logs/data_preprocess.log","+a")
         file.write("This error related to function arabic_preprocess_pipline of data_preprocess file \n"

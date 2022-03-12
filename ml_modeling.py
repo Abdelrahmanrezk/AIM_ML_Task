@@ -1,18 +1,15 @@
-from sklearn.svm import SVC
-from gensim.models import Word2Vec
-import numpy as np
-import pickle
-import os
+
+
+# Main libraries 
+from sklearn.linear_model import  LogisticRegression
 from sklearn.model_selection import GridSearchCV
-from sklearn.ensemble import VotingClassifier
-from sklearn.linear_model import SGDClassifier, LogisticRegression
-from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.metrics import f1_score
 from sklearn.tree import DecisionTreeClassifier
-import keras
-from sklearn.ensemble import RandomForestClassifier, VotingClassifier
-from datetime import datetime
+from sklearn.metrics import f1_score
 from sklearn.svm import LinearSVC
+from datetime import datetime
+import numpy as np
+import os
+
 
 def grid_search(model, parameters, X_train, y_train):
     grid_s_model = GridSearchCV(model, parameters, cv=3, verbose=1)
@@ -44,11 +41,7 @@ def f1_score_result(model, x, y):
     return np.round(micro_f1, 3)
 
 
-def save_mode(model, file_path):
 
-    pickle.dump(model, open(file_path, 'wb'))
-
-    return True
 
 def ml_classifer_pipeline(model, X_train, y_train, X_val, y_val, used_word2vec_path, model_path_to_save):
     start                                       = datetime.now()
@@ -67,7 +60,9 @@ def voting_models():
     dec_tree_clf_model  = DecisionTreeClassifier(max_depth=5, min_samples_split=2, min_samples_leaf=1)
     estimators = [("svc_clf_model", svc_clf_model), ("lg_clf_model", lg_clf_model), ("dec_tree_clf_model", dec_tree_clf_model)]
     return estimators
-    
+
+
+
 # def soft_vot():
 
 # def ml_voting_classifer(estimators, voting_type="hard", X_train, y_train, X_val, y_val, 

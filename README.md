@@ -5,6 +5,12 @@ Many countries speak Arabic; however, each country has its own dialect, the aim 
 
 In this work we have passed through different phases from fetching the data, to process it, shuffle the data for the next stage of preparation and run the model on. And how we come over these stages is decribed below.
 
+## Configs
+
+Helpful script to keep of some functions that we use in different files.
+
+**To see this file, check the [configs.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/configs.py) script, its fully documented.**
+
 ## Data Fetching
 
 We have the original dataset without the text column, which what we will use for feature engineering to predict which text belong to which dialect. So for that we have design our pipeline for fetching the data using the ids of the original dataset, once we get all of text related to all ids we save new csv file with the new text column.
@@ -54,6 +60,12 @@ we dealing with Arabic text we start the cleaning process.
 ![Pre-processing Data](images/pre-processing_data.png)
 
 |![Shuffling Data](images/shuffling_data.png)
+
+## Other code
+
+There iscode_for_other_work, include some code we aimed to delete or use for other work as Grid search, but its need a time to go over this code and train different models multiple times on sem-large dataset.
+
+**To see this file, check the [configs.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/configs.py) script, its fully documented.**
 
 
 ## How To Use

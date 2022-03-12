@@ -1,9 +1,9 @@
 from sklearn.model_selection import StratifiedShuffleSplit, train_test_split
-import numpy as np
 from configs import *
 
 
 
+########################### Start random splitting
 
 def general_split_and_shuffle(data, split_percentage=.02):
     '''
@@ -20,6 +20,7 @@ def general_split_and_shuffle(data, split_percentage=.02):
     # First general shuffle , frac it determines what fraction of total instances need to be returned.
     data                = data.sample(frac=1).reset_index(drop=True)
 
+    # random splitting
     train_set, test_set = train_test_split(data, test_size=split_percentage)
 
     print("The number of instances in the training data after train_test_split are: ", len(train_set))
@@ -28,7 +29,9 @@ def general_split_and_shuffle(data, split_percentage=.02):
 
     return train_set, test_set
 
+########################### End of random splitting
 
+########################### Start Stratified splitting
 
 def Stratified_split_and_shuffle(data, dialect_col_to_split_on, split_percentage=.02):
     '''
@@ -65,6 +68,9 @@ def Stratified_split_and_shuffle(data, dialect_col_to_split_on, split_percentage
 
     return strat_train_set, strat_test_set
 
+########################### End of Stratified splitting
+
+########################### Start to get how many instances for each class
 
 def dialect_proportions(data):
     '''
@@ -77,7 +83,12 @@ def dialect_proportions(data):
     prop_sampels_per_class = data["dialect"].value_counts() / len(data)
     return prop_sampels_per_class
 
+########################### End of get how many instances for each class
 
+
+########################### Start to get how many instances for each class
+
+########################### Start to compare the two shuffling method we use
 
 def compare_random_and_stratified_split(dialect_dataset, test_set, strat_test_set):
     '''
@@ -87,7 +98,10 @@ def compare_random_and_stratified_split(dialect_dataset, test_set, strat_test_se
         dialect_dataset  : dataframe, the orginal data to compare with.
         test_set         : dataframe, the test data created by random split.
         strat_test_set   : dataframe, the test data created by random stratified split.
+    Return 
+        comp_prop        : dataframe, the table that explain how different splitting are. 
     '''
+    
     # Get percentage of the number of instances per class for each dataset
     overall                              = dialect_proportions(dialect_dataset)
     random_test                          = dialect_proportions(test_set)
@@ -102,3 +116,4 @@ def compare_random_and_stratified_split(dialect_dataset, test_set, strat_test_se
     return comp_prop
 
 
+########################### End of compare the two shuffling method we use
