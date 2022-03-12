@@ -27,8 +27,19 @@ we used lightweight ones which use just unigrams, and as well as our pretrained 
 
 - First, check Server requirements notebook you can find here [Server requirements](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/Server%20requirements.ipynb)
 - mkdir new direction inside models direction as we download
+	- in models direction
 - Second, run the notebook to download these word2vec models.
 - Third, extract the zip files, and get the files inside into same downloaded zip , remove zip.
+
+## dataset
+
+The dataset after fetching it from API is larger than 50 Miga, and it we can not pushed to github so we have compress it so you can extract it, but you can also run into the models directly by unzip the trained dataset inside "train" direction , and escape either fetching data or preprocess it, we save our work after each stage.
+
+### To go from scratch
+- First run Data Fetching notebook
+- Then, run Data pre-processing
+- Third, go to the machine learning or deep learning notebooks.
+- Or, using the Deployment FastAPI notebook to check with your cases.
 
 
 ## Next, what we done !
