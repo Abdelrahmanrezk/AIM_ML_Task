@@ -39,6 +39,7 @@ we dealing with Arabic text we start the cleaning process.
 
 
 ### How we passed through this stage
+
 - Encode the dialects into numbers
 - Replace url with Non-standard Arabic name (رابطويب)
 - Replace mentions with Non-standard Arabic name (حسابشخصي)
@@ -61,11 +62,14 @@ we dealing with Arabic text we start the cleaning process.
 
 |![Shuffling Data](images/shuffling_data.png)
 
+
+
+
 ## Other code
 
 There iscode_for_other_work, include some code we aimed to delete or use for other work as Grid search, but its need a time to go over this code and train different models multiple times on sem-large dataset.
 
-**To see this file, check the [configs.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/configs.py) script, its fully documented.**
+**To see this file, check the [code_for_other_work.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/code_for_other_work.py).**
 
 
 ## How To Use
