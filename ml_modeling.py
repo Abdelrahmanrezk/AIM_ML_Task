@@ -7,6 +7,7 @@ from datetime import datetime
 import numpy as np
 import os
 
+from features_extraction import *
 
 ########################### Start to train the model
 
@@ -60,7 +61,7 @@ def voting_models():
        estimators : list, The classifiers we create.
     '''
 
-    svc_clf_model = LinearSVC(C=0.5,  verbose=1)
+    svc_clf_model = LinearSVC(C=0.5,  max_iter=50, verbose=1)
     lg_clf_model  = LogisticRegression(penalty='l2', C=1, multi_class='multinomial', solver='lbfgs', verbose=1)
     dec_tree_clf_model  = DecisionTreeClassifier(max_depth=5, min_samples_split=2, min_samples_leaf=1)
     estimators = [("svc_clf_model", svc_clf_model), ("lg_clf_model", lg_clf_model), ("dec_tree_clf_model", dec_tree_clf_model)]
@@ -100,7 +101,7 @@ def ml_classifer_pipeline(model, X_train, y_train, X_val, y_val, used_word2vec_p
     model_name = type(model).__name__
     model_path_to_save = os.path.join(model_path_to_save, used_word2vec_path)
     model_path_to_save = model_path_to_save + model_name + "_" + "_f1_" + str(micro_f1) + "_ml.sav" 
-    _ = save_mode(model, model_path_to_save)
+    _ = pickle_save_mode(model, model_path_to_save)
     print ("It takes to run: ", datetime.now() - start)
     return model
 
