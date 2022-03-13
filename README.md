@@ -35,7 +35,7 @@ we used lightweight ones which use just unigrams, and as well as our pretrained 
 
 The dataset after fetching it from API is larger than 50 Miga, and we can not pushed to github so we have compress it, and you can extract it, but you can also run into the models directly by unzip the trained dataset inside "train" direction , and escape either fetching data or preprocess it, we save our work after each stage.
 
-### To go from scratch
+### To go from scratch:
 - First run Data Fetching notebook
 - Then, run Data pre-processing
 - Third, go to the machine learning or deep learning notebooks.
@@ -55,7 +55,7 @@ Helpful script to keep of some functions that we use in different files.
 
 We have the original dataset without the text column, which what we will use for feature engineering to predict which text belong to which dialect. So for that we have design our pipeline for fetching the data using the ids of the original dataset, once we get all of text related to all ids we save new csv file with the new text column.
 
-### How we passed through this stage
+### How we passed through this stage:
 
 - First read the original dataset file.
 - Then, convert the data types of values in id column of the original dataset into string instead of integer.
@@ -78,7 +78,7 @@ The first thing we started with after fetching the data is to process the text w
 we dealing with Arabic text we start the cleaning process.
 
 
-### How we passed through this stage
+### How we passed through this stage:
 
 - Encode the dialects into numbers
 - Replace url with Non-standard Arabic name (رابطويب)
@@ -113,7 +113,7 @@ So we use one of the modern approaches to get representation of each word "Word2
 
 Once we got these word representation and run the required functions to convert from word representation into text representation, we run into the modeling phase and train different models as table below present the different results we got.
 
-### How we passed through this stage
+### How we passed through this stage:
 
 - Read the training data
 - Split the data into training and validation.
@@ -126,14 +126,9 @@ Once we got these word representation and run the required functions to convert 
 
 
 
-### Other code
-
-There iscode_for_other_work, include some code we aimed to delete or use for other work as Grid search, but its need a time to go over this code and train different models multiple times on sem-large dataset.
-
-**To see this file, check the [code_for_other_work.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/code_for_other_work.py).**
 
 
-## Results
+## Results with Machine Learning Models
 
 Word2Vec Used | Model Used | F1-score|
 ------------- | ---------- | ------- |
@@ -142,3 +137,20 @@ AraVec word Representation | Logistic Regression| .36|
 Our word Representation    | Logistic Regression| .41|
 Our word Representation    | GradientBoostingClassifier| .22|
 Our word Representation    | LinearSVC| .27|
+
+## Results with Deep Learning Models
+
+Word2Vec Used | Model, Optimizer, Batching | F1-score|
+------------- | -------------------------- | ------- |
+AraVec word Representation | LSTM, SGD, No Batch | .32|
+AraVec word Representation | LSTM, SGD, Batch| .36|
+AraVec word Representation | LSTM, Adam, No Batch| .41|
+AraVec word Representation | LSTM, Adam, Batch| .22|
+Our word Representation    | LSTM, SGD, No Batch| .27|
+Our word Representation    | LSTM, SGD, Batch| .27|
+Our word Representation    | LSTM, Adam, No Batch| .27|
+
+
+**Overview about the work till splitting data**
+
+![Fetching Data Pipeline](images/AIM_Data_Preprocess_pipeline.png)

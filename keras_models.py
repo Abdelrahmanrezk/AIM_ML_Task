@@ -1,4 +1,3 @@
-
 import time
 import os
 from keras.layers.embeddings import Embedding
@@ -19,17 +18,97 @@ def get_run_tensor_logdir(run_hyper_params, tensor_dir=TENSOR_DIR):
     as we used the tensorboard server as our vislization tool to help decide which model we can use.
     
     Argument:
-    TENSOR_DIR: the tensor logs direction to be our direction for different runs.
-    run_hyper_params: which hyper params we have used for this run.
+        run_hyper_params: which hyper params we have used for this run.
+        TENSOR_DIR: the tensor logs direction to be our direction for different runs.
+        
     return
-    TENSOR_DIR + run id(which run along with hyperparams to create subdirectory for)
+        tensor_dir + run id(which run along with hyperparams to create subdirectory for)
     '''
     
     run_id = time.strftime("run_%Y_%m_%d_%H_%M_%S_") + run_hyper_params
     return os.path.join(tensor_dir, run_id)
 
 
+
+
+
+def lstm_no_batch_seqential_model_create(hid_num_neurons, max_len=64, number_of_features=100, dropout=.2):
+    '''
+    The function used to create keras Long short-term memory Sequential model.
+
+    Argument
+        hid_num_neurons    : int, the number of neurons to use with LSTM layer.
+        max_len            : int, the maximum number of tokens we tend to use for each text.
+        number_of_features : int, the number of flatten features of each token.
+        dropout            : float, to avoid the overfitting.
+    '''
+    model = keras.models.Sequential()
+    model.add(keras.layers.LSTM(hid_num_neurons, return_sequences=True, input_shape=(max_len, number_of_features)))
+    model.add(keras.layers.Dropout(dropout))
+    model.add(keras.layers.Flatten())
+    model.add(keras.layers.Dense(18, activation="softmax"))
+    return model
+
+
+
+def lstm_with_batch_model_create(hid_num_neurons, max_len=64, number_of_features=100, dropout=.2):
+    '''
+    The function used to create keras Long short-term memory Sequential model with Batching Normalization.
+
+    Argument
+        hid_num_neurons    : int, the number of neurons to use with LSTM layer.
+        max_len            : int, the maximum number of tokens we tend to use for each text.
+        number_of_features : int, the number of flatten features of each token.
+        dropout            : float, to avoid the overfitting.
+    '''
+    model = keras.models.Sequential()
+    model.add(keras.layers.Input(shape=(max_len, number_of_features)))
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.LSTM(hid_num_neurons, return_sequences=True, input_shape=(max_len, number_of_features)))
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Dropout(dropout))
+    model.add(keras.layers.Flatten())
+    model.add(keras.layers.Dense(18, activation="softmax"))
+    return model
+
+def seqential_model_compile(model, optimizer):
+    '''
+    The function used to compile keras model with Sequential API, and specific optimizer.
+
+    Argument
+        model     : The keras model create.
+        optimizer : The optimizer of learning algorithm.
+    '''
+    model.compile(loss="sparse_categorical_crossentropy", optimizer=optimizer,
+                  metrics=['accuracy'])
+    return model
+
+
+def keras_f1_score_result(model, x, y):
+    """
+    The function used to test the model that we have trained.
+    
+    Argument
+        model    : model object, the trained model.
+        x        : array, 2-d array to test the model.
+        y        : array, 1-d array that represent the class associated with each instance.
+    Return
+        micro_f1 : float, the score we got from validation.
+    """
+    predict=model.predict(x) 
+    predict=np.argmax(predict,axis=1)
+    micro_f1 = f1_score(y, predict, average='micro')
+
+    print("===================== Validate Result =====================")
+    print("F1 score is: ", micro_f1)
+
+    return np.round(micro_f1, 3)
+
+
 def keras_callbacks(word2vec_type, model_type, learning_rate):
+    '''
+    The function used to save the models at end of each epoch, along with tensorboard to compare models.
+    '''
      # Handle the different runs for the model to easily monitor from tensor board
     hyper_params = word2vec_type + "_" + model_type + "_learning_rate=" + str(learning_rate) + "_"
     run_log_dir = get_run_tensor_logdir(hyper_params, TENSOR_DIR)
@@ -49,71 +128,3 @@ def keras_callbacks(word2vec_type, model_type, learning_rate):
     callbacks = [cb_early_stop, cb_check_point, cb_tensor_board]
 
     return callbacks
-
-
-# def lstm_keras_sequential_model_create(hid_num_neurons, max_len=64, number_of_features=100, dropout=.2):
-#     '''
-#     The function used to build your architecture of sequential model
-    
-#     Argument:
-#         embed_create:  list that contain:
-#             max_len       : Which fixed length we need to retrive the text in
-#             number_of_features     : The number of features (Laten features we need for each word)
-#     return:
-#         model: The architecture of the model we have built
-#     '''
-
-#     # Create the Sequential model
-#     model = keras.models.Sequential()
-#     model.add(LSTM(hid_num_neurons, return_sequences=True, input_shape=(max_len, number_of_features)))
-#   model.add(Dropout(dropout))
-#   model.add(Flatten())
-#   model.add(Dense(18, activation="softmax"))
-#     return model
-
-def lstm_no_batch_seqential_model_create(hid_num_neurons, max_len=64, number_of_features=100, dropout=.2):
-    model = keras.models.Sequential()
-    model.add(keras.layers.LSTM(hid_num_neurons, return_sequences=True, input_shape=(max_len, number_of_features)))
-    model.add(keras.layers.Dropout(dropout))
-    model.add(keras.layers.Flatten())
-    model.add(keras.layers.Dense(18, activation="softmax"))
-    return model
-
-
-
-def lstm_with_batch_model_create(hid_num_neurons, max_len=64, number_of_features=100, dropout=.2):
-
-    model = keras.models.Sequential()
-    model.add(keras.layers.Input(shape=(max_len, number_of_features)))
-    model.add(keras.layers.BatchNormalization())
-    model.add(keras.layers.LSTM(hid_num_neurons, return_sequences=True, input_shape=(max_len, number_of_features)))
-    model.add(keras.layers.BatchNormalization())
-    model.add(keras.layers.Dropout(dropout))
-    model.add(keras.layers.Flatten())
-    model.add(keras.layers.Dense(18, activation="softmax"))
-    return model
-
-def seqential_model_compile(model, optimizer):
-    model.compile(loss="sparse_categorical_crossentropy", optimizer=optimizer,
-                  metrics=['accuracy'])
-    return model
-
-
-
-# def keras_embed_sequential_model_compile(model, optimizer_):
-#     '''
-#     The architecture of the model we have built need to be compiled to define which loss function the model will use,
-#     beside of which optimization algorithm to update the weights to minimize the loss function. 
-#     other optional parameters we can pass like binary_accuracy.
-    
-#     Argument:
-#         model          : The model we have built
-#         optimizer_     : Which optimizer we tend to use
-#     return:
-#         model : The architecture of the model we have built and compiled 
-#     '''
-#     model.compile(loss="sparse_categorical_crossentropy", optimizer=optimizer_, 
-#                   metrics=['accuracy'])
-#     return model
-
-

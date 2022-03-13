@@ -52,6 +52,19 @@ def pickle_load_model(file_path):
     model = pickle.load(open(file_path, "rb"))
     return model
 
+def keras_load_model(file_path):
+    '''
+    The function used to load sklearn models using pickle.
+
+    Argument
+        file_path : string, the path where the models is saved.
+    Return
+        model     : model object, the corresponding model we load.
+    '''
+    model = keras.models.load_model(file_path)
+    return model
+
+
 
 
 def prepare_data(data):
