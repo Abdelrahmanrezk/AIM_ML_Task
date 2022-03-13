@@ -126,7 +126,9 @@ Once we got these word representation and run the required functions to convert 
 
 
 
+### Result of Testing and what we use in our API
 
+**To see this stage of Data preparation &  Modeling, check the [ml_modeling.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/ml_modeling.py), and [keras_models.py](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/keras_models.py) its fully documented, and to get overview of the result from this stage after run the notebooks check [ML Models Train.ipynb notebook](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/ML%20Models%20Train.ipynb), and  and [DL Models Train.ipynb notebook](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/DL%20Models%20Train.ipynb)**
 
 ## Results with Machine Learning Models
 

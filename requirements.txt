@@ -21,3 +21,6 @@ gdown
 tashaphyne
 xgboost
 tensorflow
+pydantic
+fastapi
+uvicorn
