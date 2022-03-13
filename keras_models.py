@@ -25,8 +25,8 @@ def get_run_tensor_logdir(run_hyper_params, tensor_dir=TENSOR_DIR):
     TENSOR_DIR + run id(which run along with hyperparams to create subdirectory for)
     '''
     
-    run_id = time.strftime("run_%Y_%m_%d_%H_%M_%S_")
-    return os.path.join(tensor_dir, run_id, "_run_hyper_params")
+    run_id = time.strftime("run_%Y_%m_%d_%H_%M_%S_") + run_hyper_params
+    return os.path.join(tensor_dir, run_id)
 
 
 def keras_callbacks(word2vec_type, model_type, learning_rate):

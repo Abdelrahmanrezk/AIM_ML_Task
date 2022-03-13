@@ -26,14 +26,14 @@ Second important, We have used word2vec for word representation, we used some pr
 we used lightweight ones which use just unigrams, and as well as our pretrained one. So to come over this:
 
 - First, check Server requirements notebook you can find here [Server requirements](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/Server%20requirements.ipynb)
-- mkdir new direction inside models direction as we download
-	- in models direction
+- mkdir new direction inside models direction downloaded
+	- in "models" direction should have "word2vec/downloaded_models"
 - Second, run the notebook to download these word2vec models.
 - Third, extract the zip files, and get the files inside into same downloaded zip , remove zip.
 
 ## dataset
 
-The dataset after fetching it from API is larger than 50 Miga, and it we can not pushed to github so we have compress it so you can extract it, but you can also run into the models directly by unzip the trained dataset inside "train" direction , and escape either fetching data or preprocess it, we save our work after each stage.
+The dataset after fetching it from API is larger than 50 Miga, and we can not pushed to github so we have compress it, and you can extract it, but you can also run into the models directly by unzip the trained dataset inside "train" direction , and escape either fetching data or preprocess it, we save our work after each stage.
 
 ### To go from scratch
 - First run Data Fetching notebook
@@ -98,9 +98,31 @@ we dealing with Arabic text we start the cleaning process.
 **To see this stage of preprocessing data, check the [data_preprocess.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/data_preprocess.py) and to know how we shuffle the data, check the [data_shuffling_split.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/data_shuffling_split.py) its fully documented, and to get overview of the result from this stage check [Data pre-processing.ipynb notebook](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/Data%20pre-processing.ipynb).**
 
 **Quick intuition about preprocessing and shuffling**
+
 ![Pre-processing Data](images/pre-processing_data.png)
 
+**Comparison the different splitting with the original data**
+
 |![Shuffling Data](images/shuffling_data.png)
+
+### Data preparation &  Modeling
+
+After we have the data and splited with Stratified splitting, we have to get features (numbers) from that text as any ML models or DL models just fit to numbers.
+
+So we use one of the modern approaches to get representation of each word "Word2Vec", instead of classical approaches like Vectorization or tf-idf and the the problems it runs from, either in encoding the context or the curse of dimension.
+
+Once we got these word representation and run the required functions to convert from word representation into text representation, we run into the modeling phase and train different models as table below present the different results we got.
+
+### How we passed through this stage
+
+- Read the training data
+- Split the data into training and validation.
+- Tokenize the training and validation text to get token representation.
+- Read the word2vec model to use.
+- Initialize the required variables.
+- Train different Machine Learning & Deep Learning Models
+
+**To see this stage of Data preparation &  Modeling, check the [ml_modeling.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/ml_modeling.py), and [keras_models.py](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/keras_models.py) its fully documented, and to get overview of the result from this stage after run the notebooks check [ML Models Train.ipynb notebook](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/ML%20Models%20Train.ipynb), and  and [DL Models Train.ipynb notebook](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/DL%20Models%20Train.ipynb)**
 
 
 
@@ -111,4 +133,12 @@ There iscode_for_other_work, include some code we aimed to delete or use for oth
 **To see this file, check the [code_for_other_work.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/code_for_other_work.py).**
 
 
+## Results
 
+Word2Vec Used | Model Used | F1-score|
+------------- | ---------- | ------- |
+AraVec word Representation | AdaBoostClassifier | .32|
+AraVec word Representation | Logistic Regression| .36|
+Our word Representation    | Logistic Regression| .41|
+Our word Representation    | GradientBoostingClassifier| .22|
+Our word Representation    | LinearSVC| .27|
