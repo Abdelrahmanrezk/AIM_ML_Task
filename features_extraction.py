@@ -121,8 +121,10 @@ def text_to_matrix_using_word2vec(word_to_vec_model, text_list, max_len_str):
     # pad_sequences is a keras object that help us done this work.
     embedding_matrix = pad_sequences(embedding_matrix, maxlen=max_len_str, padding='post',  dtype='float16')
 
+    print("="*50)
+    print(embedding_matrix.shape)
     # This is for machine learning models but we will need to reshape it for deep learning models.
-    embedding_matrix = embedding_matrix.reshape(embedding_matrix.shape[0], (embedding_matrix.shape[1]*embedding_matrix.shape[2]))
+    embedding_matrix = embedding_matrix.reshape(embedding_matrix.shape[0], embedding_matrix.shape[1]*embedding_matrix.shape[2])
     
     print(embedding_matrix.shape)
     print("="*50)
