@@ -128,7 +128,8 @@ Once we got these word representation and run the required functions to convert 
 
 ### Result of Testing and what we use in our API
 
-**To see this stage of Data preparation &  Modeling, check the [ml_modeling.py script](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/ml_modeling.py), and [keras_models.py](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/keras_models.py) its fully documented, and to get overview of the result from this stage after run the notebooks check [ML Models Train.ipynb notebook](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/ML%20Models%20Train.ipynb), and  and [DL Models Train.ipynb notebook](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/DL%20Models%20Train.ipynb)**
+**To see result of modeling, check the [Compare ML Models.ipynb Notebook](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/Compare%20ML%20Models.ipynb), or [Compare DL Models.ipynb Notebook](https://github.com/Abdelrahmanrezk/AIM_ML_Task/blob/main/Compare%20DL%20Models.ipynb).**
+
 
 ## Results with Machine Learning Models
 
@@ -144,15 +145,20 @@ Our word Representation    | LinearSVC| .27|
 
 Word2Vec Used | Model, Optimizer, Batching | F1-score|
 ------------- | -------------------------- | ------- |
-AraVec word Representation | LSTM, SGD, No Batch | .32|
-AraVec word Representation | LSTM, SGD, Batch| .36|
-AraVec word Representation | LSTM, Adam, No Batch| .41|
-AraVec word Representation | LSTM, Adam, Batch| .22|
-Our word Representation    | LSTM, SGD, No Batch| .27|
-Our word Representation    | LSTM, SGD, Batch| .27|
-Our word Representation    | LSTM, Adam, No Batch| .27|
+AraVec word Representation | LSTM, SGD, No Batch | .47|
+AraVec word Representation | LSTM, SGD, Batch| .46|
+AraVec word Representation | LSTM, Adam, No Batch| .47|
+AraVec word Representation | LSTM, Adam, Batch| .47|
+Our word Representation    | LSTM, SGD, No Batch| .51|
+Our word Representation    | LSTM, SGD, Batch| .49|
+Our word Representation    | LSTM, Adam, No Batch| .51|
 
 
 **Overview about the work till splitting data**
 
 ![Fetching Data Pipeline](images/AIM_Data_Preprocess_pipeline.png)
+
+**Overview about Modeling using Tensorboard**
+
+
+![TensorBoard](images/tensor_board.png)
