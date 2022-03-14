@@ -23,7 +23,7 @@ pip3 install nltk
 
 ```
 
-[Predict Your Dialect](https://www.youtube.com/watch?v=132JNO8RRfM)
+[Predict Your Dialect Video](https://www.youtube.com/watch?v=132JNO8RRfM)
 
 ![Predict Your Dialect](images/response.png)
 
