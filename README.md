@@ -17,7 +17,14 @@ pip3 install -r requirements.txt
 # in case of missed libraries error
 pip3 install nltk
 
+# Then open Jupter notebook and run Deployment FastAPI  Notebook to launch notebook "ipython notebook"
+# request "http://0.0.0.0:8000/docs"
+# Watch the video below to know how to use it.
+
 ```
+
+[Predict Your Dialect](https://www.youtube.com/watch?v=132JNO8RRfM)
+
 
 
 ## Word2Vec
