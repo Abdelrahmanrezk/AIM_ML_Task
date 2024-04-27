@@ -1,7 +1,7 @@
 nltk
 tashaphyne
 emojis
-sklearn
+scikit-learn
 twarc
 twint
 urllib3
@@ -13,7 +13,6 @@ emojis
 emosent-py
 spacy_langdetect
 spacy
-sklearn
 python-bidi
 matplotlib
 arabic-reshaper
