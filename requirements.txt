@@ -23,3 +23,4 @@ tensorflow
 pydantic
 fastapi
 uvicorn
+keras
